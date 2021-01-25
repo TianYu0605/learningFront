@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          counter: 1,
+          flag: 5,
+          list: ['classname1','classname2',{classname3:true}], 
+          //类名数组里也可以写对象，<div :class="list"></div>相当于<div class="classname1 classname2 classname3"></div>
+          styleString:'color:red;background-color:green',
+          //也可以在data里声明一个样式字符串，然后在行内样式中调用<div :style="styleString"></div>
+          styleObj:{color:'red',backgroundColor:'green'}
+          //也可以以对象的形式去写css样式<div :style="styleObj"></div>
+        }
+      },
+      methods: {
+        handleClick1(event){ //传递event时要加$符
+          this.flag *= 3 
+        },
+        handleClick2(){ //要想一次触发两个事件，在模板中要用逗号隔开，同时记得加上括号
+          this.counter += 1
+        },
+        handleKeyDown(e){
+          console.log(e);
+        }
+      },
+      watch: {
+        flag(current,prev){/*函数名为要监听的值。 current代表当前值,prev是以前的值*/}
+      },
+      computed: {
+        total() {
+          return this.flag * this.counter
+        }
+      },
+      mounted() {//页面加载完成
+        this.$data.counter += 1 //可简写成  this.counter +=1
+      },
+      template:`<div> <div :class="list"></div>
+          <input @keyDown="handleKeyDown"></input>
+          <div v-on:click="handleClick1($event),handleClick2()">{{total}}次</div>
+          <my-title v-for="(item,index) of list" v-bind:item="item" v-bind:index="index" :key="index+item"/>
+        </div>`
+    })
+    app.component('my-title',{
+      props: ['index','item'],
+      template: `<h1>这是模板[{{index}}]{{item}}</h1>`
+    })
+    const vm = app.mount('#app')   //vm是viewModel的简写，表示数据与视图链接层，这部分vue自动帮你做了
+    console.log(vm);  //Proxy
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background-color: #34459e;
+    }
+    div{
+      text-transform: uppercase;
+      font-size: 5em;
+      font-weight: bold;
+      color: #9b59b6;
+    }
+    div > span{
+      position: relative;
+      display: inline-block;
+    }
+    .color{
+      animation-name: color;
+      animation-duration: .3s;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+      animation-direction: alternate; /*动画来回切换*/
+    }
+    @keyframes color{
+      50%{
+        color: #f1c40f;
+        transform: scale(2);  /*放大两倍*/
+      }
+      100%{
+        color: red;
+        transform: scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>Are You Ok?</div>
+  <script>
+    const div = document.querySelector('div');
+    [...div.textContent].reduce((pre,cur,index)=>{
+      pre === index && (div.innerHTML = '')
+      let span = document.createElement('span')
+      span.innerHTML = cur
+      div.appendChild(span)
+      span.addEventListener('mouseover',function(){
+        this.classList.add('color')
+      })
+      span.addEventListener('animationend',function(){
+        this.classList.remove('color')
+      })
+    },0)
+  </script>
+</body>
+</html>
