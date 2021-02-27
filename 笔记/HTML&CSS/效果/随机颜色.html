@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      width: 100vw;
+      height: 100vh;
+      background-color: grey;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function Color(elem){
+      this.elem = elem
+      this.colors = ['red','orange','blue'];
+      this.run = function(){
+        setInterval(function() {
+          let i = Math.floor(Math.random()*this.colors.length)
+          this.elem.style.backgroundColor = this.colors[i]
+        }.bind(this), 100);
+      }
+    }
+    let obj = new Color(document.body)
+    obj.run()
+  </script>
+</body>
+</html>

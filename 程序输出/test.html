@@ -6,14 +6,45 @@
   <title>Document</title>
   <!-- <script src="./原型相关.js"></script> -->
   <style>
-
+    .box{
+      width: 100px;
+      height: 100px;
+      line-height: 25px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+    }
   </style>
 </head>
 <body>
-  <button>点击1</button>
-  <button>点击2</button>
+  <button desc='btn1'>点击1</button>
+  <button desc='btn2'>点击2</button>
+  <div class="box">apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数apply和call会立刻执行，而bind不会，bind可以在绑定或者执行时传参数</div>
   <script>
-    console.log(Math.max.apply(Math,[1,2,3,4]));
+    function Request(params) {
+      this.get = function(params){
+        let str = Object.keys(params).map(k => `${k}=${params[k]}`).join('&')
+        let url = `http://www.baidu.com${this.url}?${str}`
+        console.log(url);
+      }
+    }
+    function Article() {
+      this.url = 'articles/lists'
+      Request.call(this)  //或者Request.apply(this)，没有第二个参数，用哪个都一样 
+    }
+    function User() {
+      this.url = 'users/lists'
+      Request.call(this)
+    }
+    let article = new Article()
+    article.get({id:1,desc:'big'})
+    let user = new User()
+    user.get({id:1,desc:'small'})
+
+
+
   </script>
 </body>
 </html>
