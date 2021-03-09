@@ -6,15 +6,20 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="contnet">asdvjdfsduifsd</div>
   <script>
     "use strict"
-    let user = {
-      name(){
-        console.log('own function');
-      }
+    window.onload = function () {
+      let lesson = `
+      #1 语文:15 # 
+      #2 数学:60 # 
+      `;
+      lesson.match(/^\d*#\d+\s+.+\s+#$/gm).map(item=>{
+        item = item.replace(/\s*#\d+\s/,'').replace(/#/,'')
+        [name,count] = item.split(',')
+        return {name,count}
+      })
     }
-    user.__proto__.name = function() {console.log('father function')} //给user的父级添加一个方法
-    user.name()//own function   对象方法优于原型方法
 
   </script>
 </body>
