@@ -6,21 +6,19 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="contnet">asdvjdfsduifsd</div>
+  <div style="width: 300px;height: 300px;background-color: blue;position: relative;"></div>
   <script>
     "use strict"
     window.onload = function () {
-      let lesson = `
-      #1 语文:15 # 
-      #2 数学:60 # 
-      `;
-      lesson.match(/^\d*#\d+\s+.+\s+#$/gm).map(item=>{
-        item = item.replace(/\s*#\d+\s/,'').replace(/#/,'')
-        [name,count] = item.split(',')
-        return {name,count}
-      })
+      //new的时候是准备状态
+      new Promise((resolve, reject)=>{
+        resolve('操作成功！')
+      })//then是执行完之后要做的事
+      .then(
+        value => {console.log(value);},
+        reason => {console.log(reason);}
+      )
     }
-
   </script>
 </body>
 </html>
