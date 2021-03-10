@@ -34,3 +34,25 @@ $ git stash pop
 $ git reset --hard
 $ git pull
 ```
+
+### `git提交代码时每次都要输入用户名和密码`
+* 关闭弹窗并配置账户缓存
+```bash
+#关闭弹窗
+$ git config --system --unset credential.helper 或 git config --global --unset credential.helper  
+$ git config --global --unset credential.helper #如果上述命令执行后不起作用，再执行该命令
+#缓存账号密码，第一次输入过后，账号和密码会被缓存到.git-credentials文件中
+$ git config --global credential.helper store
+```
+参考文档：[github每次提交都要弹出登陆框，要求输入账号和密码](https://www.jianshu.com/p/912fe8c95908)
+* 放弃使用http协议，使用ssh协议
+```bash
+#方法一：改掉https链接协议
+$ git remote rm origin      # 删除名为 `origin` 的远程库
+$ git remote add origin git@github.com:你的用户名/你的仓库名.git
+#方法二：不需要删掉远程库，直接修改本地的 .git/config 文件，把
+url = https://github.com/你的用户名/你的仓库名.git 
+#改成
+url = git@github.com:你的用户名/你的仓库名.git
+```
+参考文档：[Git添加ssh](https://blog.csdn.net/StardustYu/article/details/89044704)

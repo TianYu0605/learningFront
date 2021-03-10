@@ -10,14 +10,11 @@
   <script>
     "use strict"
     window.onload = function () {
-      //new的时候是准备状态
-      new Promise((resolve, reject)=>{
-        resolve('操作成功！')
-      })//then是执行完之后要做的事
-      .then(
-        value => {console.log(value);},
-        reason => {console.log(reason);}
-      )
+      new Promise((resolve,reject)=>{
+        reject('reject')
+      })
+      .then(value=>console.log('value',value),error=>console.log('error',error)) //value reject
+      .then(value=>console.log('成功',value),error=>error) //error reject
     }
   </script>
 </body>
