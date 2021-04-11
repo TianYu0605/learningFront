@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跟着鼠标走的加载小动画</title>
+    <style>
+      body, #container{
+        padding: 0;
+        margin: 0;
+      }
+      #container{
+        width:100%;
+        height:100%;
+        background-color: white;
+        position: absolute;
+      }
+      #ball_1, #ball_2, #ball_3{
+        border-radius: 100%;
+        position: absolute;
+      }
+      #ball_1{
+        width:8px;
+        height:8px;
+        background-color: #999;
+      }
+      #ball_2{
+        width:12px;
+        height:12px;
+        background-color: #666;
+      }
+      #ball_3{
+        width:16px;
+        height:16px;
+        background-color: #333;
+      }
+    </style>
+  </head>
+  <body>
+   
+    <div id="container"></div>
+   
+    <script>
+   
+      //初始化3个小球
+      var container = document.getElementById("container");
+      var ball_arr = [];
+   
+      for(var i=1; i<=3; i++){
+        var ball = document.createElement('div');
+        ball.id = "ball_" + i;
+        ball.style.display = "none";
+        ball_arr.push( ball );				//压入小球数组
+        container.appendChild( ball );		//添加小球到网页中显示
+      }
+   
+      //定义椭圆路径
+      var path_length = 50;	//定义路径的半长轴的长度
+      var path_width = 30;	//定义路径的半短轴的长度
+      var path_angel = 0;		//初始化角度为0
+      var angel_increase = 1.3;	//小球运动角度增量
+      var ball_gap = 0.8;		//小球间距
+   
+      //鼠标移动事件(兼容性写法)
+      var webUI = container;
+      if (document.addEventListener) { //FireFox,Chrome,Opera…
+        // webUI.addEventListener('click', onMouseClick, false); //单击事件是在同一元素上发生了鼠标按下事件之后又发生了鼠标放开事件时才发生的。
+        // webUI.addEventListener('mousedown', OnMouseDown, false); //事件会在鼠标按键被按下时发生。
+        // webUI.addEventListener('mouseup', OnMouseUp, false); //事件会在鼠标按键被松开时发生。
+        webUI.addEventListener('mousemove',onMouseMove,false); //事件会在鼠标指针移动时发生。
+        // webUI.addEventListener('mouseover', onMouseOver, false); //事件会在鼠标指针移动到指定的对象上时发生。
+        // webUI.addEventListener('mouseout', onMouseOut, false); //事件会在鼠标指针移出指定的对象时发生。
+        //c.addEventListener('touch',onMouseClick,false);       
+      }
+      else if (document.attachEvent) { //IE
+        // webUI.attachEvent('onclick', onMouseClick, false); //单击事件是在同一元素上发生了鼠标按下事件之后又发生了鼠标放开事件时才发生的。
+        // webUI.attachEvent('onmousedown', OnMouseDown, false); //事件会在鼠标按键被按下时发生。
+        // webUI.attachEvent('onmouseup', OnMouseUp, false); //事件会在鼠标按键被松开时发生。
+        webUI.attachEvent('onmousemove', onMouseMove, false); //事件会在鼠标指针移动时发生。
+        // webUI.attachEvent('onmouseover', onMouseOver, false); //事件会在鼠标指针移动到指定的对象上时发生。
+        // webUI.attachEvent('onmouseout', onMouseOut, false); //事件会在鼠标指针移出指定的对象时发生。
+      }
+      else { //Other（IE，FireFox，Chrome，Opera等，绝大部分浏览器支持方法 onclick 监听）
+        alert("您的当前的浏览器可能是：……");
+        // webUI.οnclick=onMouseClick;
+        // webUI.οnmοusedοwn=OnMouseDown;
+        // webUI.οnmοuseup=OnMouseUp;
+        webUI.οnmοusemοve=onMouseMove;
+        // webUI.οnmοuseοver=onMouseOver;
+        // webUI.οnmοuseοut=onMouseOut;
+      }
+   
+      //定义实时鼠标坐标
+      var mouseX = 0;
+      var mouseY = 0;
+   
+      //鼠标移动事件
+      function onMouseMove(event){
+   
+        //先停止小球运动
+        if( timer != null ){
+          cancelAnimationFrame(timer);
+        }
+   
+        //更新坐标
+        mouseX = event.clientX + document.body.scrollLeft - document.body.clientLeft;
+        mouseY = event.clientY + document.body.scrollTop - document.body.clientTop;
+   
+        //开启小球运动
+        timer = requestAnimationFrame(drawFrame);
+      }
+   
+      //定义帧事件（兼容性写法）
+      window.requestAnimFrame = (function(){
+        return  window.requestAnimationFrame       || 
+            window.webkitRequestAnimationFrame || 
+            window.mozRequestAnimationFrame    || 
+            window.oRequestAnimationFrame      || 
+            window.msRequestAnimationFrame     || 
+            function( callback ){
+              window.setTimeout(callback, 1000 / 60);
+            };
+      })();
+      //取消帧事件（兼容性写法）
+      window.cancelAnimationFrame = (function () {
+        return window.cancelAnimationFrame ||
+            window.webkitCancelAnimationFrame ||
+            window.mozCancelAnimationFrame ||
+            window.oCancelAnimationFrame ||
+            function (timer) {
+              window.clearTimeout(timer);
+            };
+      })();
+   
+      //监听帧事件，帧渲染和帧绘制的变量
+      var timer = null;
+   
+      //根据椭圆路径，执行小球运动
+      function drawFrame(){
+   
+        for(var i=0; i<ball_arr.length; i++){
+   
+          var ball = ball_arr[i];
+   
+          //显示小球
+          ball.style.display = "block";
+   
+          //转化角度为弧度制
+          var angel = ((path_angel * Math.PI / 180) + (i * ball_gap)) % 360;
+   
+          //更新小球横坐标
+          ball.style.left = path_length * Math.cos(angel) + mouseX - ball.style.width/2 - document.body.clientLeft + "px";
+          //更新小球纵坐标
+          ball.style.top = path_width * Math.sin(angel) + mouseY - ball.style.height/2 - document.body.clientTop + "px";
+   
+          //根据增量更新角度
+          path_angel = (path_angel + angel_increase) % 360;
+        }
+   
+        //再次渲染
+        timer = requestAnimationFrame(drawFrame);
+      }
+   
+    </script>
+   
+  </body>
+  </html>
+</html>

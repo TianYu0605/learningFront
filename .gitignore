@@ -11,6 +11,7 @@
 # production
 /build
 /笔记/webpack/learningWebpack/node_modules
+/相关资料
 
 # misc
 .DS_Store

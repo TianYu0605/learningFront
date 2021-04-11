@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="Shortcut Icon" href="https://img-home.csdnimg.cn/images/20201124032511.png" />
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    window.onload = function(){
+        document.title = '更改标题头'  //更改标题头
+        //更改图标
+        //head中没有link图标
+        let headElement = document.getElementsByTagName('head')[0];
+        let linkElement = document.createElement('link');
+        linkElement.setAttribute('rel','Shortcut Icon')
+        linkElement.setAttribute('type','image/x-icon')
+        linkElement.setAttribute("href",'http://dingyue.ws.126.net/Z0aE7PFLIMM7Bq=prfbtroBx=decQA3uDNoFT7zMfxa571499517946140compressflag.png')
+        headElement.appendChild(linkElement); //是在head尾部插入，如果shead中已有，则不生效
+    }
+  </script>
+</body>
+</html>

@@ -153,7 +153,7 @@ document.write(num);   //95
 15. split(''): 将字符串拆分成数组 Array.from(str)也可以将字符串拆成数组
 
 ### `类型转换使用技巧`
-```
+```js
 const a = '88'; a*1+1 //值为89，字符串与数字做乘除时会隐式的将字符串转化为数字后做乘除，若不乘1将会变成字符串拼接
 const a = 88; a + ''//变成了字符串 
 console.log(parseInt('99ssfgfd')) //99  console.log(parseInt('aaa99aaa'))  //NaN console.log(parseFloat('99.21aaa'))  //99.21

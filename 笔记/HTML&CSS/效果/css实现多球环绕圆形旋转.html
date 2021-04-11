@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/less">
+  @keyframes carouse {
+    0%{ transform: rotateX(-12deg) rotateY(0deg); }
+    100%{ transform: rotateX(-12deg) rotateY(360deg);}
+  }
+    .control-middle{
+      width: 7.9rem;
+      height: 3.7rem;
+      margin: 0 auto;
+      padding-top: 1.3rem;
+      position: relative;
+    }
+    .carousel-wrapper{
+      position: relative;
+      width: 1.38rem;
+      height: 1.38rem;
+      margin: 0 auto;
+      z-index: 1002;
+      transform-style: preserve-3d;
+      animation: carouse 20s linear infinite;
+    }
+    .carousel-wrapper:hover{
+      animation-play-state: paused;
+    }
+    .img-wrapper{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      color: #00ffff;
+      line-height: 1.5rem;
+      text-align: center;
+      background-image: url('../../../assets/personControl/normalCircle.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: 1002;
+    }
+    .img-container{
+      transform: rotateX(12deg);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+    .img-wrapper:nth-child(1){
+      transform: translateZ(350px);
+    }
+    .img-wrapper:nth-child(2){
+      transform: rotateY(51deg) rotateX(0deg) translateZ(350px);
+    }
+    .img-wrapper:nth-child(3){
+      transform: rotateY(103deg) rotateX(0deg) translateZ(350px);
+    }
+    .img-wrapper:nth-child(4){
+      transform: rotateY(154deg) rotateX(0deg) translateZ(350px);
+    }
+    .img-wrapper:nth-child(5){
+      transform: rotateY(206deg) rotateX(0deg) translateZ(350px);
+    }
+    .img-wrapper:nth-child(6){
+      transform: rotateY(257deg) rotateX(0deg) translateZ(350px);
+    }
+    .img-wrapper:nth-child(7){
+      transform: rotateY(309deg) rotateX(0deg) translateZ(350px);
+    }
+  </style>
+</head>
+<body>
+  <div class="control-middle">
+    <div class="carousel-wrapper">
+      <div className="img-wrapper"><div className="img-container">type</div></div>
+    </div>
+  </div>
+</body>
+</html>
