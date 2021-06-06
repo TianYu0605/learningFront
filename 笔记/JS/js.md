@@ -177,4 +177,7 @@ while (true) {
 
 ### `日期的使用`
 
+### `js注意事项`
+![javascript搞笑图](./assets/javascript搞笑图.jpg)
+
 

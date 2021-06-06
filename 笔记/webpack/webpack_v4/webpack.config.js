@@ -31,7 +31,7 @@ module.exports={
           if(req.headers.accept.indexOf('html')!==-1){
             return 'index.html'
           }//当你访问的是html文件时，会给你返回当前路径下html.index文件下的内容
-        },//当返回值为false时，会跳过盖茨转换，该返回什么就返回什么
+        },//当返回值为false时，会跳过该次转换，该返回什么就返回什么
         pathRewrite: {
           'header.json': 'demo.json'
         }
