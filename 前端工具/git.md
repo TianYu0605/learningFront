@@ -1,4 +1,17 @@
 ### `常用命令`
+```bash
+$ git stash # 提交当前代码到暂存区
+$ git pull origin master # 从远程的master分支拉取代码并覆盖本地代码
+$ git stash pop  # 将暂存区的代码弹出
+$ git branch -a # 查看所有分支
+$ git branch test # 在本地新建test分支
+$ git push origin test # 将新分支发布在github上
+$  git push origin :test # 删除远端的分支test
+$ git branch -d feature/test #当一个分支被推送并合并到远程分支后， -d 才会本地删除该分支。 如果一个分支还没有被推送或者合并，那么可以使用 -D 强制删除它
+$ git checkout feature/pre # 本地切换到feature/pre分支
+$ git checkout -b feature/pre # 本地创建feature/pre分支并切换到feature/pre分支 相当于git branch feature/pre 和 git checkout feature/pre的集合
+$ git checkout -b feature/pre origin # 本地创建feature/pre分支并关联
+```
 
 ### `合并远程分支`
 ```bash
